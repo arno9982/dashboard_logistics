@@ -1,0 +1,108 @@
+<header class="navbar">
+  <div class="navbar-left">
+    <button class="menu-toggle" (click)="toggleSidebar()">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </button>
+    <h1 class="page-title">{{ getPageTitle() }}</h1>
+  </div>
+
+  <div class="navbar-right">
+    <!-- Status Indicator -->
+    <div class="status-indicator">
+      <span class="status-dot" [class.online]="systemStatus === 'online'" [class.offline]="systemStatus === 'offline'"></span>
+      <span class="status-text">{{ systemStatus === 'online' ? 'En ligne' : 'Hors ligne' }}</span>
+    </div>
+
+    <!-- Notifications -->
+    <button class="notification-btn" (click)="toggleNotifications()">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+      </svg>
+      <span class="badge" *ngIf="notificationsCount > 0">{{ notificationsCount }}</span>
+    </button>
+
+    <!-- User Menu -->
+    <div class="user-menu">
+      <button class="user-btn" (click)="toggleUserMenu()">
+        <div class="user-avatar-small">{{ user.name.charAt(0) }}</div>
+        <span class="user-name-nav">{{ user.name }}</span>
+        <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </button>
+
+      <div class="dropdown-menu" *ngIf="showUserMenu">
+        <div class="dropdown-header">
+          <p class="dropdown-name">{{ user.name }}</p>
+          <p class="dropdown-role">{{ user.role }}</p>
+        </div>
+        <div class="dropdown-divider"></div>
+        <a href="/profile" class="dropdown-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+          Mon profil
+        </a>
+        <a href="/settings" class="dropdown-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M12 1v6m0 6v6m8.66-15l-5.2 3m-2.92 5.2L4.34 23M23 12h-6m-6 0H1m20.66 8-5.2-3m-2.92-5.2L4.34 1"></path>
+          </svg>
+          Paramètres
+        </a>
+        <div class="dropdown-divider"></div>
+        <a href="/logout" class="dropdown-item logout">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" y1="12" x2="9" y2="12"></line>
+          </svg>
+          Déconnexion
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notifications Dropdown -->
+  <div class="notifications-dropdown" *ngIf="showNotifications">
+    <div class="notifications-header">
+      <h3>Notifications</h3>
+      <span class="notifications-count">{{ notificationsCount }}</span>
+    </div>
+    <div class="notifications-list">
+      <div class="notification-item">
+        <div class="notification-icon success">✓</div>
+        <div class="notification-content">
+          <p class="notification-title">Livraison réussie</p>
+          <p class="notification-text">CMD-2024-003 a été livrée</p>
+          <span class="notification-time">Il y a 5 min</span>
+        </div>
+      </div>
+      <div class="notification-item">
+        <div class="notification-icon info">📦</div>
+        <div class="notification-content">
+          <p class="notification-title">Nouvelle commande</p>
+          <p class="notification-text">CMD-2024-005 assignée à Jean</p>
+          <span class="notification-time">Il y a 15 min</span>
+        </div>
+      </div>
+      <div class="notification-item">
+        <div class="notification-icon warning">⚠️</div>
+        <div class="notification-content">
+          <p class="notification-title">Retard signalé</p>
+          <p class="notification-text">CMD-2024-001 en retard</p>
+          <span class="notification-time">Il y a 30 min</span>
+        </div>
+      </div>
+    </div>
+    <div class="notifications-footer">
+      <a href="/notifications">Voir toutes les notifications</a>
+    </div>
+  </div>
+</header>

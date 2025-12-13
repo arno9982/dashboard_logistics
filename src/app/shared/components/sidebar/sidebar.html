@@ -1,0 +1,66 @@
+<nav class="sidebar">
+  <div class="sidebar-header">
+    <div class="logo-container">
+      <svg class="logo-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M1 3h15v13H1zM16 8h5v13H7v-5"></path>
+      </svg>
+      <span class="logo-text">Logistics</span>
+    </div>
+  </div>
+
+  <ul class="menu-list">
+    <li *ngFor="let item of menu" class="menu-item">
+      <a [routerLink]="item.route"
+         routerLinkActive="active"
+         class="menu-link">
+        <svg class="menu-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <ng-container [ngSwitch]="item.iconType">
+            <!-- Dashboard Icon -->
+            <g *ngSwitchCase="'dashboard'">
+              <rect x="3" y="3" width="7" height="7"></rect>
+              <rect x="14" y="3" width="7" height="7"></rect>
+              <rect x="14" y="14" width="7" height="7"></rect>
+              <rect x="3" y="14" width="7" height="7"></rect>
+            </g>
+            <!-- Package Icon -->
+            <g *ngSwitchCase="'package'">
+              <line x1="16.5" y1="9.4" x2="7.5" y2="4.21"></line>
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+              <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+              <line x1="12" y1="22.08" x2="12" y2="12"></line>
+            </g>
+            <!-- Users Icon -->
+            <g *ngSwitchCase="'users'">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </g>
+            <!-- Navigation Icon -->
+            <g *ngSwitchCase="'navigation'">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polyline>
+            </g>
+            <!-- Chart Icon -->
+            <g *ngSwitchCase="'chart'">
+              <line x1="18" y1="20" x2="18" y2="10"></line>
+              <line x1="12" y1="20" x2="12" y2="4"></line>
+              <line x1="6" y1="20" x2="6" y2="14"></line>
+            </g>
+          </ng-container>
+        </svg>
+        <span class="menu-label">{{ item.label }}</span>
+      </a>
+    </li>
+  </ul>
+
+  <div class="sidebar-footer">
+    <div class="user-info">
+      <div class="user-avatar">A</div>
+      <div class="user-details">
+        <p class="user-name">Arno Tsague</p>
+        <p class="user-role">Admin</p>
+      </div>
+    </div>
+  </div>
+</nav>

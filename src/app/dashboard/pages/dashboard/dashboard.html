@@ -1,0 +1,125 @@
+<div class="dashboard">
+  <div class="dashboard-header">
+    <h1>Tableau de bord</h1>
+    <p class="subtitle">Vue d'ensemble de vos opérations logistiques</p>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="stats-grid">
+    <div class="stat-card yellow">
+      <div class="stat-icon">📦</div>
+      <div class="stat-content">
+        <p class="stat-label">Prêtes à expédier</p>
+        <p class="stat-value">{{ stats.readyToShip }}</p>
+      </div>
+    </div>
+
+    <div class="stat-card blue">
+      <div class="stat-icon">🚚</div>
+      <div class="stat-content">
+        <p class="stat-label">En cours</p>
+        <p class="stat-value">{{ stats.inTransit }}</p>
+      </div>
+    </div>
+
+    <div class="stat-card green">
+      <div class="stat-icon">✅</div>
+      <div class="stat-content">
+        <p class="stat-label">Livrées</p>
+        <p class="stat-value">{{ stats.delivered }}</p>
+      </div>
+    </div>
+
+    <div class="stat-card red">
+      <div class="stat-icon">❌</div>
+      <div class="stat-content">
+        <p class="stat-label">Échecs</p>
+        <p class="stat-value">{{ stats.failed }}</p>
+      </div>
+    </div>
+
+    <div class="stat-card purple">
+      <div class="stat-icon">👥</div>
+      <div class="stat-content">
+        <p class="stat-label">Livreurs actifs</p>
+        <p class="stat-value">{{ stats.activeDeliverers }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content Grid -->
+  <div class="content-grid">
+    <!-- Recent Activities -->
+    <div class="card">
+      <div class="card-header">
+        <h2>Activités récentes</h2>
+        <span class="live-indicator">
+          <span class="pulse"></span>
+          En direct
+        </span>
+      </div>
+      <div class="activities-list">
+        <div *ngFor="let activity of recentActivities"
+             class="activity-item"
+             [class.success]="activity.type === 'success'"
+             [class.info]="activity.type === 'info'"
+             [class.warning]="activity.type === 'warning'">
+          <div class="activity-icon">
+            <span *ngIf="activity.type === 'success'">✓</span>
+            <span *ngIf="activity.type === 'info'">📦</span>
+            <span *ngIf="activity.type === 'warning'">⚠️</span>
+          </div>
+          <div class="activity-content">
+            <p class="activity-title">{{ activity.title }}</p>
+            <p class="activity-description">{{ activity.description }}</p>
+            <span class="activity-time">{{ activity.time }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Top Deliverers -->
+    <div class="card">
+      <div class="card-header">
+        <h2>Meilleurs livreurs</h2>
+        <a href="/couriers" class="view-all">Voir tout</a>
+      </div>
+      <div class="deliverers-list">
+        <div *ngFor="let deliverer of topDeliverers; let i = index" class="deliverer-item">
+          <div class="deliverer-rank">{{ i + 1 }}</div>
+          <div class="deliverer-info">
+            <p class="deliverer-name">{{ deliverer.name }}</p>
+            <p class="deliverer-stats">{{ deliverer.deliveries }} livraisons</p>
+          </div>
+          <div class="deliverer-rating">
+            <span class="star">⭐</span>
+            <span>{{ deliverer.rating }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chart Section -->
+  <div class="card chart-card">
+    <div class="card-header">
+      <h2>Performance hebdomadaire</h2>
+      <div class="chart-filters">
+        <button class="filter-btn active">7 jours</button>
+        <button class="filter-btn">30 jours</button>
+        <button class="filter-btn">3 mois</button>
+      </div>
+    </div>
+    <div class="chart-placeholder">
+      <div class="chart-info">
+        <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#e67e22" stroke-width="2">
+          <line x1="18" y1="20" x2="18" y2="10"></line>
+          <line x1="12" y1="20" x2="12" y2="4"></line>
+          <line x1="6" y1="20" x2="6" y2="14"></line>
+        </svg>
+        <p>Graphique des performances</p>
+        <small>Intégration Chart.js à venir</small>
+      </div>
+    </div>
+  </div>
+</div>
