@@ -1,1 +1,162 @@
-<p>deliveries-list works!</p>
+<!-- src/app/pages/deliveries-list/deliveries-list.component.html -->
+<div class="delivery-list-container">
+  <!-- Header -->
+  <div class="page-header">
+    <div class="header-content">
+      <h1 class="page-title">Gestion des livraisons</h1>
+      <p class="page-subtitle">{{ deliveries.length }} livraisons au total</p>
+    </div>
+    <div class="header-actions">
+      <button class="btn btn-secondary" (click)="exportDeliveries()">
+        <span class="icon">⬇</span>
+        Exporter
+      </button>
+    </div>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="stats-grid">
+    <div class="stat-card stat-warning">
+      <div class="stat-content">
+        <div class="stat-info">
+          <p class="stat-label">En attente</p>
+          <p class="stat-value">{{ stats.en_attente }}</p>
+        </div>
+        <div class="stat-icon">🕐</div>
+      </div>
+    </div>
+
+    <div class="stat-card stat-primary">
+      <div class="stat-content">
+        <div class="stat-info">
+          <p class="stat-label">En cours</p>
+          <p class="stat-value">{{ stats.en_cours }}</p>
+        </div>
+        <div class="stat-icon">🚚</div>
+      </div>
+    </div>
+
+    <div class="stat-card stat-success">
+      <div class="stat-content">
+        <div class="stat-info">
+          <p class="stat-label">Livrées aujourd'hui</p>
+          <p class="stat-value">{{ stats.livrees_aujourdhui }}</p>
+        </div>
+        <div class="stat-icon">✓</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content Card -->
+  <div class="content-card">
+    <!-- Filters -->
+    <div class="filters-section">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input 
+          type="text" 
+          placeholder="Rechercher une livraison..." 
+          [(ngModel)]="searchTerm"
+          (input)="onSearch()"
+          class="search-input"
+        />
+      </div>
+
+      <button class="btn btn-filter" (click)="onFilterChange()">
+        <span class="icon">⚡</span>
+        Filtrer
+      </button>
+    </div>
+
+    <!-- Table -->
+    <div class="table-container" *ngIf="!loading">
+      <table class="delivery-table">
+        <thead>
+          <tr>
+            <th>COMMANDE</th>
+            <th>CLIENT</th>
+            <th>ADRESSE</th>
+            <th>MONTANT</th>
+            <th>LIVREUR</th>
+            <th>STATUT</th>
+            <th>ACTIONS</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let delivery of filteredDeliveries" class="table-row">
+            <td>
+              <div class="commande-cell">
+                <span class="commande-id">{{ delivery.commande_id }}</span>
+                <span class="commande-date">{{ delivery.date_assignation | date:'dd-MM-yy' }}</span>
+                <span class="commande-time">{{ delivery.date_assignation | date:'HH:mm' }}</span>
+              </div>
+            </td>
+            
+            <td>
+              <div class="client-cell">
+                <span class="client-name">{{ delivery.client_nom }}</span>
+                <span class="client-phone">{{ delivery.client_telephone }}</span>
+              </div>
+            </td>
+            
+            <td>
+              <div class="address-cell">
+                {{ delivery.adresse }}
+              </div>
+            </td>
+            
+            <td>
+              <span class="montant">{{ delivery.montant | number:'1.2-2' }}€</span>
+            </td>
+            
+            <td>
+              <div class="livreur-cell" *ngIf="delivery.livreur_nom; else nonAssigne">
+                <span class="livreur-name">{{ delivery.livreur_nom }}</span>
+              </div>
+              <ng-template #nonAssigne>
+                <span class="non-assigne">Non assigné</span>
+              </ng-template>
+            </td>
+            
+            <td>
+              <span class="status-badge" [ngClass]="getStatusClass(delivery.statut)">
+                {{ getStatusLabel(delivery.statut) }}
+              </span>
+            </td>
+            
+            <td>
+              <div class="actions-cell">
+                <button 
+                  *ngIf="delivery.statut === 'en_attente'" 
+                  class="btn-assign"
+                  (click)="openAssignModal(delivery)"
+                >
+                  Assigner
+                </button>
+                <button 
+                  *ngIf="delivery.statut === 'en_cours'" 
+                  class="btn-track"
+                  (click)="viewDetails(delivery)"
+                >
+                  Suivre
+                </button>
+                <button 
+                  *ngIf="delivery.statut === 'livree'" 
+                  class="btn-view"
+                  (click)="viewDetails(delivery)"
+                >
+                  Voir
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Empty State -->
+      <div *ngIf="filteredDeliveries.length === 0" class="empty-state">
+        <p>Aucune livraison trouvée</p>
+      </div>
+    </div>
+  </div>
+</div>
