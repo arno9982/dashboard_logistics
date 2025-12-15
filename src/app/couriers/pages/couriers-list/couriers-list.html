@@ -1,1 +1,52 @@
-<p>couriers-list works!</p>
+<div class="couriers-container">
+
+  <div class="header">
+    <h2>Gestion des livreurs</h2>
+    <button class="add-btn" (click)="addCourier()">
+      + Ajouter un livreur
+    </button>
+  </div>
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>LIVREUR</th>
+          <th>TÉLÉPHONE</th>
+          <th>ZONE</th>
+          <th>LIVRAISONS</th>
+          <th>NOTE</th>
+          <th>STATUT</th>
+          <th>ACTIONS</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let courier of couriers">
+          <td>{{ courier.name }}</td>
+          <td>{{ courier.phone }}</td>
+          <td>{{ courier.zone }}</td>
+          <td>{{ courier.deliveries }}</td>
+          <td>
+            ⭐ {{ courier.rating }}
+          </td>
+          <td>
+            <span
+              class="status"
+              [class.active]="courier.status === 'Actif'"
+              [class.inactive]="courier.status === 'Inactif'">
+              {{ courier.status }}
+            </span>
+          </td>
+          <td class="actions">
+            <button (click)="viewCourier(courier)">👁</button>
+            <button (click)="editCourier(courier)">✏</button>
+            <button class="danger" (click)="deleteCourier(courier)">🗑</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
