@@ -1,1 +1,240 @@
-<p>live-tracking works!</p>
+<div class="delivery-tracking-container">
+  <!-- Header -->
+  <div class="header">
+    <div class="header-content">
+      <div class="driver-info">
+        <div class="driver-avatar">
+          <span>JF</span>
+        </div>
+        <div class="driver-details">
+          <h2>Tournée - Julia Fernandez</h2>
+          <div class="progress-bar">
+            <div class="progress-fill" [style.width.%]="tourneeProgress"></div>
+          </div>
+          <span class="progress-text">{{ tourneeProgress }}%</span>
+        </div>
+      </div>
+      <button class="refresh-btn" (click)="refreshData()">
+        <i class="icon-refresh"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="stats-container">
+    <div class="stat-card">
+      <i class="icon-flag"></i>
+      <div class="stat-info">
+        <div class="stat-time">{{ startTime }}</div>
+        <div class="stat-label">Départ</div>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <i class="icon-clock"></i>
+      <div class="stat-info">
+        <div class="stat-time">{{ endTime }}</div>
+        <div class="stat-label">Arrivée estimée</div>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <i class="icon-route"></i>
+      <div class="stat-info">
+        <div class="stat-value">{{ totalDistance }} km</div>
+        <div class="stat-label">Distance</div>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <i class="icon-pin"></i>
+      <div class="stat-info">
+        <div class="stat-value">{{ totalStops }}</div>
+        <div class="stat-label">Arrêts</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Status Summary -->
+  <div class="status-summary">
+    <div class="status-item status-on-time">
+      <div class="status-number">{{ onTimeCount }}</div>
+      <div class="status-label">À l'heure</div>
+      <div class="status-subtitle">En cours</div>
+    </div>
+
+    <div class="status-item status-late">
+      <div class="status-number">{{ lateCount }}</div>
+      <div class="status-label">En retard</div>
+      <div class="status-subtitle">En cours</div>
+    </div>
+
+    <div class="status-item status-completed">
+      <div class="status-number">{{ completedCount }}</div>
+      <div class="status-label">Réalisées</div>
+    </div>
+
+    <div class="status-item status-cancelled">
+      <div class="status-number">{{ cancelledCount }}</div>
+      <div class="status-label">Annulées</div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Map Section -->
+    <div class="map-section">
+      <div class="map-container" #mapContainer>
+        <img src="https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/-0.1276,51.5074,12,0/600x400@2x?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw" alt="Map" class="map-placeholder">
+        
+        <!-- Map Controls -->
+        <div class="map-controls">
+          <button class="map-control-btn" (click)="zoomIn()">+</button>
+          <button class="map-control-btn" (click)="zoomOut()">-</button>
+          <button class="map-control-btn" (click)="centerMap()">
+            <i class="icon-locate"></i>
+          </button>
+        </div>
+
+        <!-- Legend -->
+        <div class="map-legend">
+          <div class="legend-item">
+            <span class="legend-dot completed"></span>
+            <span>Livrée</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot current"></span>
+            <span>En cours</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot pending"></span>
+            <span>À venir</span>
+          </div>
+        </div>
+      </div>
+
+      <button class="view-options-btn" (click)="toggleViewOptions()">
+        <i class="icon-filter"></i>
+        Voir les options d'affichage
+      </button>
+    </div>
+
+    <!-- Delivery Details Section -->
+    <div class="details-section">
+      <div class="delivery-header">
+        <div class="delivery-icon">
+          <i class="icon-flag-start"></i>
+        </div>
+        <div class="delivery-date">
+          <strong>Tournée démarrée :</strong> {{ startDate }}
+        </div>
+      </div>
+
+      <!-- Current Delivery Card -->
+      <div class="delivery-card active" *ngIf="currentDelivery">
+        <div class="card-header">
+          <h3>{{ currentDelivery.customerName }}</h3>
+          <div class="delivery-badges">
+            <span class="badge badge-time" [class.late]="currentDelivery.status === 'late'">
+              <i class="icon-clock"></i>
+              {{ currentDelivery.estimatedTime }}
+            </span>
+            <span class="badge badge-status" [ngClass]="'status-' + currentDelivery.status">
+              {{ getStatusLabel(currentDelivery.status) }}
+            </span>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <div class="info-row">
+            <i class="icon-location"></i>
+            <div class="info-content">
+              <strong>Adresse :</strong>
+              <p>{{ currentDelivery.address }}</p>
+            </div>
+          </div>
+
+          <div class="section-title">Informations sur le client</div>
+          
+          <div class="info-row">
+            <i class="icon-phone"></i>
+            <div class="info-content">
+              <strong>Téléphone mobile :</strong>
+              <a [href]="'tel:' + currentDelivery.phone">{{ currentDelivery.phone }}</a>
+            </div>
+          </div>
+
+          <div class="info-row">
+            <i class="icon-time"></i>
+            <div class="info-content">
+              <strong>Horaires d'ouverture :</strong>
+              <span>{{ currentDelivery.openingHours }}</span>
+            </div>
+          </div>
+
+          <div class="section-title">Détails de cette livraison</div>
+
+          <div class="delivery-details">
+            <div class="detail-item">
+              <span class="detail-label">Durée :</span>
+              <span class="detail-value">{{ currentDelivery.duration }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Créneau horaire :</span>
+              <span class="detail-value">{{ currentDelivery.timeSlot }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Id :</span>
+              <span class="detail-value">{{ currentDelivery.id }}</span>
+            </div>
+          </div>
+
+          <div class="proof-section">
+            <strong>Preuves de passage:</strong>
+            <div class="proof-icons">
+              <i class="icon-photo"></i>
+              <i class="icon-signature"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-actions">
+          <button class="btn btn-secondary" (click)="viewOnMap(currentDelivery)">
+            <i class="icon-map"></i>
+            Voir sur la carte
+          </button>
+          <button class="btn btn-primary" (click)="completeDelivery(currentDelivery)">
+            <i class="icon-check"></i>
+            Marquer comme livrée
+          </button>
+        </div>
+      </div>
+
+      <!-- Upcoming Deliveries -->
+      <div class="upcoming-deliveries">
+        <h3 class="section-header">Prochaines livraisons</h3>
+        
+        <div class="delivery-card" *ngFor="let delivery of upcomingDeliveries">
+          <div class="card-header">
+            <h4>{{ delivery.customerName }}</h4>
+            <span class="badge badge-time">
+              <i class="icon-clock"></i>
+              {{ delivery.estimatedTime }}
+            </span>
+          </div>
+          
+          <div class="card-body-compact">
+            <div class="info-row-compact">
+              <i class="icon-location"></i>
+              <span>{{ delivery.address }}</span>
+            </div>
+            <div class="info-row-compact">
+              <i class="icon-phone"></i>
+              <span>{{ delivery.phone }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
