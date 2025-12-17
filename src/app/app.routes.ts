@@ -18,4 +18,9 @@ export const routes: Routes = [
     path: 'couriers',
     loadComponent: () => import('./couriers/pages/couriers-list/couriers-list').then(m => m.CouriersComponent)
   },
+  
+   {
+    path: 'tracking',
+    loadComponent: () => import('./tracking/pages/live-tracking/live-tracking').then(m => m.DeliveryTrackingComponent)
+  },
 ];
