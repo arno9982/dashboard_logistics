@@ -62,11 +62,11 @@ export class DeliveryTrackingComponent implements OnInit, OnDestroy {
 
   private initializeDeliveries(): void {
     this.allDeliveries = [
-      { id: '11554989', customerName: 'John Gates', address: '8 Glade Path, London SE1 8EG, UK', phone: '+33612345678', openingHours: 'Toujours ouvert', duration: '25min', timeSlot: '08:00 ↔ 17:00', estimatedTime: '08:45', status: 'on-time', latitude: 51.5074, longitude: -0.1278 },
-      { id: '11554990', customerName: 'Sarah Johnson', address: '42 Baker Street, London NW1 6XE, UK', phone: '+33612345679', openingHours: '09:00 - 18:00', duration: '20min', timeSlot: '09:00 ↔ 17:00', estimatedTime: '09:30', status: 'late', latitude: 51.5238, longitude: -0.1585 },
-      { id: '11554991', customerName: 'Michael Brown', address: '15 Oxford Street, London W1D 1BS, UK', phone: '+33612345680', openingHours: '08:00 - 20:00', duration: '30min', timeSlot: '10:00 ↔ 18:00', estimatedTime: '10:45', status: 'late', latitude: 51.5155, longitude: -0.1426 },
-      { id: '11554992', customerName: 'Emma Wilson', address: '78 Piccadilly, London W1J 8HP, UK', phone: '+33612345681', openingHours: '10:00 - 19:00', duration: '15min', timeSlot: '11:00 ↔ 16:00', estimatedTime: '11:30', status: 'late', latitude: 51.5074, longitude: -0.1419 },
-      { id: '11554993', customerName: 'David Lee', address: '23 Regent Street, London W1B 5AH, UK', phone: '+33612345682', openingHours: '09:00 - 21:00', duration: '25min', timeSlot: '12:00 ↔ 17:00', estimatedTime: '12:15', status: 'late', latitude: 51.5112, longitude: -0.1339 }
+      { id: 'CM2025001', customerName: 'Jean Dupont', address: 'Rue de la Joie, Akwa, Douala', phone: '+237699887766', openingHours: '08:00 - 18:00', duration: '30min', timeSlot: '09:00 ↔ 12:00', estimatedTime: '09:15', status: 'on-time', latitude: 4.0483, longitude: 9.7043 },
+      { id: 'CM2025002', customerName: 'Amina Bello', address: 'Boulevard de la Liberté, Bonapriso, Douala', phone: '+237677665544', openingHours: 'Toujours ouvert', duration: '20min', timeSlot: '09:00 ↔ 17:00', estimatedTime: '10:30', status: 'late', latitude: 4.0325, longitude: 9.7006 },
+      { id: 'CM2025003', customerName: 'Paul Atanga', address: 'Avenue Kennedy, Centre Ville, Yaoundé', phone: '+237655443322', openingHours: '10:00 - 20:00', duration: '45min', timeSlot: '11:00 ↔ 18:00', estimatedTime: '11:45', status: 'late', latitude: 3.8480, longitude: 11.5021 },
+      { id: 'CM2025004', customerName: 'Chantal Biya', address: 'Rue des Ambassades, Bastos, Yaoundé', phone: '+237666554433', openingHours: '09:00 - 16:00', duration: '25min', timeSlot: '14:00 ↔ 16:00', estimatedTime: '14:20', status: 'late', latitude: 3.8925, longitude: 11.5085 },
+      { id: 'CM2025005', customerName: 'Samuel Eto\'o', address: 'Down Beach, Limbe', phone: '+237654321098', openingHours: '10:00 - 22:00', duration: '35min', timeSlot: '15:00 ↔ 17:00', estimatedTime: '16:00', status: 'late', latitude: 4.0156, longitude: 9.2149 }
     ];
     this.currentDelivery = this.allDeliveries[0];
     this.upcomingDeliveries = this.allDeliveries.slice(1, 4);

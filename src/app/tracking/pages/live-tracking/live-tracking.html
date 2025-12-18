@@ -7,11 +7,12 @@
           <span>JF</span>
         </div>
         <div class="driver-details">
-          <h2>Tournée - Julia Fernandez</h2>
-          <div class="progress-bar">
+          <h2>Tournée -NomLivreur</h2>
+         <!---- <div class="progress-bar">
             <div class="progress-fill" [style.width.%]="tourneeProgress"></div>
-          </div>
+          </div> 
           <span class="progress-text">{{ tourneeProgress | number:'1.0-2' }}%</span>
+        -->
         </div>
       </div>
       <button class="refresh-btn" (click)="refreshData()">
@@ -21,6 +22,7 @@
   </div>
 
   <!-- Stats Cards -->
+   <!----
   <div class="stats-container">
     <div class="stat-card">
       <i class="icon-flag"></i>
@@ -51,8 +53,9 @@
       </div>
     </div>
   </div>
-
+-->
   <!-- Status Summary -->
+  <input type="search"  class="search-input" placeholder="Rechercher un livreur "/>
   <div class="status-summary">
     <div class="status-item status-on-time">
       <div class="status-number">{{ onTimeCount }}</div>
