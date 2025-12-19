@@ -46,6 +46,23 @@
   position: sticky;
   top: 0;
   z-index: 100;
+ margin-bottom: 20px;
+}
+.search-input {
+  display: block;
+  width: 100%;
+  max-width: 450px; /* Limite la largeur sur les grands écrans */
+  margin: 0 auto 24px auto; /* Centre le champ et ajoute de l'espace en dessous */
+  padding: 12px 20px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #334155; /* Couleur de texte sombre */
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0; /* Bordure subtile */
+  border-radius: 30px; /* Coins très arrondis pour un look moderne */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  -webkit-appearance: none; /* Supprime les styles par défaut sur Safari/Chrome */
 }
 
 .header-content {
@@ -294,6 +311,7 @@
   box-shadow: var(--shadow-md);
   position: relative;
   height: 400px;
+  width: 600px;
 }
 
 .map-placeholder {
