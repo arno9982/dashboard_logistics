@@ -7,7 +7,7 @@
       <!-- Infos Chauffeur -->
       <div class="driver-info">
         <div class="driver-avatar">
-          <span>10</span>
+          <span> 4</span>
         </div>
         <div class="driver-details">
           <h2>livreurs en activité</h2>
@@ -19,7 +19,7 @@
           <span class="progress-text">{{ tourneeProgress | number:'1.0-2' }}%</span>
           -->
         </div>
-        <div class="driver-avatar">23</div>
+        
       </div>
       
       <!-- Bouton refresh -->
@@ -36,17 +36,22 @@
   </div>
   -->
 
-  <!-- Résumé Statut -->
+  <!-- Résumé Statut avec binding -->
   <div class="search-filter">
     <div class="filter-container">
-      <select class="filter-select">
+      <select class="filter-select" [(ngModel)]="selectedFilter" (change)="applyFilters()">
         <option value="all">Tous</option>
         <option value="zone">Zone</option>
         <option value="name">Nom</option>
       </select>
     </div>
     <div class="search-container">
-      <input type="search" class="search-input" placeholder="Rechercher" />
+      <input 
+        type="search" 
+        class="search-input" 
+        placeholder="Rechercher" 
+        [(ngModel)]="searchTerm" 
+        (input)="onSearchInput()" />
     </div>
   </div>
 
