@@ -1,91 +1,71 @@
 <div class="delivery-tracking-container">
+
   <!-- Header -->
   <div class="header">
     <div class="header-content">
+      
+      <!-- Infos Chauffeur -->
       <div class="driver-info">
         <div class="driver-avatar">
-          <span>JF</span>
+          <span>10</span>
         </div>
         <div class="driver-details">
-          <h2>Tournée -NomLivreur</h2>
-         <!---- <div class="progress-bar">
+          <h2>livreurs en activité</h2>
+          <!-- Progress bar (commenté) -->
+          <!--
+          <div class="progress-bar">
             <div class="progress-fill" [style.width.%]="tourneeProgress"></div>
-          </div> 
+          </div>
           <span class="progress-text">{{ tourneeProgress | number:'1.0-2' }}%</span>
-        -->
+          -->
         </div>
+        <div class="driver-avatar">23</div>
       </div>
+      
+      <!-- Bouton refresh -->
       <button class="refresh-btn" (click)="refreshData()">
         <i class="icon-refresh"></i>
       </button>
     </div>
   </div>
 
-  <!-- Stats Cards -->
-   <!----
+  <!-- Statistiques (commentées) -->
+  <!--
   <div class="stats-container">
-    <div class="stat-card">
-      <i class="icon-flag"></i>
-      <div class="stat-info">
-        <div class="stat-time">{{ startTime }}</div>
-        <div class="stat-label">Départ</div>
-      </div>
-    </div>
-    <div class="stat-card">
-      <i class="icon-clock"></i>
-      <div class="stat-info">
-        <div class="stat-time">{{ endTime }}</div>
-        <div class="stat-label">Arrivée estimée</div>
-      </div>
-    </div>
-    <div class="stat-card">
-      <i class="icon-route"></i>
-      <div class="stat-info">
-        <div class="stat-value">{{ totalDistance }} km</div>
-        <div class="stat-label">Distance</div>
-      </div>
-    </div>
-    <div class="stat-card">
-      <i class="icon-pin"></i>
-      <div class="stat-info">
-        <div class="stat-value">{{ totalStops }}</div>
-        <div class="stat-label">Arrêts</div>
-      </div>
-    </div>
+    ... (contenu stats)
   </div>
--->
-  <!-- Status Summary -->
-  <input type="search"  class="search-input" placeholder="Rechercher un livreur "/>
-  <div class="status-summary">
-    <div class="status-item status-on-time">
-      <div class="status-number">{{ onTimeCount }}</div>
-      <div class="status-label">À l'heure</div>
-      <div class="status-subtitle">En cours</div>
+  -->
+
+  <!-- Résumé Statut -->
+  <div class="search-filter">
+    <div class="filter-container">
+      <select class="filter-select">
+        <option value="all">Tous</option>
+        <option value="zone">Zone</option>
+        <option value="name">Nom</option>
+      </select>
     </div>
-    <div class="status-item status-late">
-      <div class="status-number">{{ lateCount }}</div>
-      <div class="status-label">En retard</div>
-      <div class="status-subtitle">En cours</div>
-    </div>
-    <div class="status-item status-completed">
-      <div class="status-number">{{ completedCount }}</div>
-      <div class="status-label">Réalisées</div>
-    </div>
-    <div class="status-item status-cancelled">
-      <div class="status-number">{{ cancelledCount }}</div>
-      <div class="status-label">Annulées</div>
+    <div class="search-container">
+      <input type="search" class="search-input" placeholder="Rechercher" />
     </div>
   </div>
 
-  <!-- Main Content -->
+  <!-- Résumé Statut (commenté) -->
+  <!--
+  <div class="status-summary">
+    ... (contenu statuts)
+  </div>
+  -->
+
+  <!-- Contenu principal -->
   <div class="main-content">
-    <!-- Map Section -->
+    <!-- Section Map -->
     <div class="map-section">
       <div class="map-container">
-        <!-- LA CARTE EST INTÉGRÉE ICI -->
+        <!-- Carte intégrée -->
         <app-map [points]="mapPoints"></app-map>
         
-        <!-- Map Controls -->
+        <!-- Contrôles Map -->
         <div class="map-controls">
           <button class="map-control-btn" (click)="zoomIn()">+</button>
           <button class="map-control-btn" (click)="zoomOut()">-</button>
@@ -94,7 +74,7 @@
           </button>
         </div>
 
-        <!-- Legend -->
+        <!-- Légende -->
         <div class="map-legend">
           <div class="legend-item">
             <span class="legend-dot completed"></span>
@@ -112,9 +92,9 @@
       </div>
     </div>
 
-    <!-- Delivery Details Section -->
+    <!-- Section Détails Livraison -->
     <div class="details-section">
-      <!-- ... (le reste de votre HTML ne change pas) ... -->
+      <!-- Contenu restant à insérer -->
     </div>
   </div>
 </div>
